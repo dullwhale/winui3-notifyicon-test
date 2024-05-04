@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "winui3-notifyicon-test (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "winui3-notifyicon-test (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
