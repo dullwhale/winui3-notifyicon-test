@@ -6,9 +6,18 @@
     xmlns:local="using:winui3_notifyicon_test"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:tb="using:H.NotifyIcon"
     mc:Ignorable="d">
 
     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
         <Button x:Name="myButton" Click="myButton_Click">Click Me</Button>
+        <tb:TaskbarIcon>
+            <tb:TaskbarIcon.IconSource>
+                <tb:GeneratedIconSource
+            Text="❤️"
+            Foreground="Red"
+            />
+            </tb:TaskbarIcon.IconSource>
+        </tb:TaskbarIcon>
     </StackPanel>
 </Window>
