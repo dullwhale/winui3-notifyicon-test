@@ -13,6 +13,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using System.Windows.Input;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -24,9 +25,12 @@ namespace winui3_notifyicon_test
     /// </summary>
     public sealed partial class MainWindow : Window
     {
+        private readonly IconClickedCommand IconClicked;
         public MainWindow()
         {
             this.InitializeComponent();
+
+            IconClicked = new IconClickedCommand();
 
             // ウィンドウが閉じられたイベントに対するイベントハンドラを追加
             Closed += (sender, args) =>
@@ -45,10 +49,20 @@ namespace winui3_notifyicon_test
         }
     }
 
-    // 元のイベントハンドラ
-    //protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
-    //{
-    //    m_window = new MainWindow();
-    //    m_window.Activate();
-    //}
+    // ワークアラウンド　H.NotifyIcon.WinUIがイベントハンドラとして普通のメソッドを受け付けるなら、このクラスは要らない。
+    // WPF向けに作られたH.NotifyIconを無理やりWinUI3に対応させているようだから、ICommand型しか渡せない。
+    // WinUI3が公式にNotifyIconに対応したら、このclassは消されるべきである。
+    public class IconClickedCommand : ICommand
+    {
+        public event EventHandler CanExecuteChanged = null;
+        public bool CanExecute(object parameter)
+        {
+            return true;
+        }
+
+        public void Execute(object parameter)
+        {
+            App.MainWindow.Activate();
+        }
+    }
 }
